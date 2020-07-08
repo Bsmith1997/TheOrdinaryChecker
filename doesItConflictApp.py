@@ -26,8 +26,6 @@ def main():
             for rows in range(sheet.nrows):
                 if group in sheet.row_values(rows)[1]:
                     x.append(sheet.row_values(rows)[0])
-                    #lbl3 = Label(window, text=x)
-                    #lbl3.grid(column=0)
                 if toCheck in sheet.row_values(rows)[1]:
                     y.append(sheet.row_values(rows)[0])
                     #lbl4 = Label(window, text=y)
