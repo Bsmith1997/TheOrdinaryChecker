@@ -23,7 +23,7 @@ def main():
             lbl2.place(anchor="c",relx=.5, rely=.4)
             for rows in range(sheet.nrows):
                 if group in sheet.row_values(rows)[1]:
-                    if sheet.row_values(rows)[0] != toCheck and sheet.row_values(rows)[0] != "Product":
+                   if sheet.row_values(rows)[0] != toCheck and sheet.row_values(rows)[0] != "Product":
                         x.append(sheet.row_values(rows)[0])
                 if toCheck in sheet.row_values(rows)[1]:
                     if sheet.row_values(rows)[0] != toCheck and sheet.row_values(rows)[0] != "Product":
@@ -31,9 +31,16 @@ def main():
                 if sheet.row_values(rows)[0] in sheet.cell(row,1).value:
                     if sheet.row_values(rows)[0] != toCheck and sheet.row_values(rows)[0] != "Product":
                         z.append(sheet.row_values(rows)[0])
+                if sheet.row_values(rows)[2] in sheet.cell(row,1).value:
+                    if sheet.row_values(rows)[0] != toCheck and sheet.row_values(rows)[0] != "Product":
+                        z.append(sheet.row_values(rows)[0])
+
     x_set = set(x)
     y_set = set(y)
     z_set = set(z)
+    print(x_set)
+    print(y_set)
+    print(z_set)
 
     total = x + y + z
     total_set = set(total)
@@ -42,19 +49,27 @@ def main():
         lbl4 = Label(f2, text="This product does not have any conficts. \n If this does not make sense then please check your spelling, \n this is case and spelling sensitive!", background="coral1", font='Helvetica 14 bold')
         lbl4.place(anchor="c",relx=.5, rely=.7)
     else: 
+        
         final = "\n ".join(str(e) for e in total_set)
-        lbl4 = Label(f2, text=final, background="coral1")
+        print(final)
+        lbl4 = Text(f2, background="coral1")
+        lbl4.insert(INSERT, final)
+        lbl4.config(state='disabled')
         lbl4.place(anchor="c",relx=.5, rely=.7)
+        v = Scrollbar(window, orient= VERTICAL) 
+        v.pack(side = RIGHT, fill = Y)
+        lbl4.config(yscrollcommand = v.set)
+        v.config(command)
+        
 
 window = Tk()
-window.geometry("500x500")
+window.geometry("750x600")
 f1 = Frame(width=800, height=600, background="white")
 f2 = Frame(width=775, height=575, background="SkyBlue3")
-f1.pack(fill="both", expand=True, padx=20, pady=2)
-f2.place(in_=f1, anchor="c", relx=.5, rely=.5)
 
 f1.pack(fill="both", expand=True, padx=20, pady=20)
 f2.place(in_=f1, anchor="c", relx=.5, rely=.5)
+
 
 window.title("Does it confict?")
 
@@ -70,6 +85,7 @@ txt.focus()
 btn = Button(f2, text="Check it!", command = main, bg="SkyBlue4")
 
 btn.place(anchor="c",relx=.5, rely=.3)
+
 
 window.mainloop()
 	    	
